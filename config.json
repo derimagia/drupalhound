@@ -1,0 +1,406 @@
+{
+  "dbpath": "data",
+  "max-concurrent-indexers": 6,
+  "repos": {
+    "Amazon Product Advertisement API": {
+      "url": "git://git.drupal.org/project/amazon.git",
+      "ms-between-poll": 604800
+    },
+    "Annotation": {
+      "url": "git://git.drupal.org/project/annotation.git",
+      "ms-between-poll": 604800
+    },
+    "Atom": {
+      "url": "git://git.drupal.org/project/atom.git",
+      "ms-between-poll": 604800
+    },
+    "Bbcode": {
+      "url": "git://git.drupal.org/project/bbcode.git",
+      "ms-between-poll": 604800
+    },
+    "Birthday": {
+      "url": "git://git.drupal.org/project/birthday.git",
+      "ms-between-poll": 604800
+    },
+    "Bookmarks": {
+      "url": "git://git.drupal.org/project/bookmarks.git",
+      "ms-between-poll": 604800
+    },
+    "Breadcrumb": {
+      "url": "git://git.drupal.org/project/breadcrumb.git",
+      "ms-between-poll": 604800
+    },
+    "Buddylist": {
+      "url": "git://git.drupal.org/project/buddylist.git",
+      "ms-between-poll": 604800
+    },
+    "Chat Box": {
+      "url": "git://git.drupal.org/project/chatbox.git",
+      "ms-between-poll": 604800
+    },
+    "Checkmail": {
+      "url": "git://git.drupal.org/project/checkmail.git",
+      "ms-between-poll": 604800
+    },
+    "CVS integration": {
+      "url": "git://git.drupal.org/project/cvslog.git",
+      "ms-between-poll": 604800
+    },
+    "Devel": {
+      "url": "git://git.drupal.org/project/devel.git",
+      "ms-between-poll": 604800
+    },
+    "Event": {
+      "url": "git://git.drupal.org/project/event.git",
+      "ms-between-poll": 604800
+    },
+    "Ezmlm": {
+      "url": "git://git.drupal.org/project/ezmlm.git",
+      "ms-between-poll": 604800
+    },
+    "Feature": {
+      "url": "git://git.drupal.org/project/feature.git",
+      "ms-between-poll": 604800
+    },
+    "Feedback": {
+      "url": "git://git.drupal.org/project/feedback.git",
+      "ms-between-poll": 604800
+    },
+    "File": {
+      "url": "git://git.drupal.org/project/file.git",
+      "ms-between-poll": 604800
+    },
+    "Gallery": {
+      "url": "git://git.drupal.org/project/gallery.git",
+      "ms-between-poll": 604800
+    },
+    "Glossary": {
+      "url": "git://git.drupal.org/project/glossary.git",
+      "ms-between-poll": 604800
+    },
+    "Htmlarea": {
+      "url": "git://git.drupal.org/project/htmlarea.git",
+      "ms-between-poll": 604800
+    },
+    "HTML corrector": {
+      "url": "git://git.drupal.org/project/htmlcorrector.git",
+      "ms-between-poll": 604800
+    },
+    "HTML Tidy": {
+      "url": "git://git.drupal.org/project/htmltidy.git",
+      "ms-between-poll": 604800
+    },
+    "Image": {
+      "url": "git://git.drupal.org/project/image.git",
+      "ms-between-poll": 604800
+    },
+    "Node Aggregator": {
+      "url": "git://git.drupal.org/project/naggregator.git",
+      "ms-between-poll": 604800
+    },
+    "Keywords": {
+      "url": "git://git.drupal.org/project/keywords.git",
+      "ms-between-poll": 604800
+    },
+    "Listhandler": {
+      "url": "git://git.drupal.org/project/listhandler.git",
+      "ms-between-poll": 604800
+    },
+    "Mailalias": {
+      "url": "git://git.drupal.org/project/mailalias.git",
+      "ms-between-poll": 604800
+    },
+    "Mailhandler": {
+      "url": "git://git.drupal.org/project/mailhandler.git",
+      "ms-between-poll": 604800
+    },
+    "Members": {
+      "url": "git://git.drupal.org/project/members.git",
+      "ms-between-poll": 604800
+    },
+    "Nicelinks": {
+      "url": "git://git.drupal.org/project/nicelinks.git",
+      "ms-between-poll": 604800
+    },
+    "Notify": {
+      "url": "git://git.drupal.org/project/notify.git",
+      "ms-between-poll": 604800
+    },
+    "Path": {
+      "url": "git://git.drupal.org/project/path.git",
+      "ms-between-poll": 604800
+    },
+    "Pdfview": {
+      "url": "git://git.drupal.org/project/pdfview.git",
+      "ms-between-poll": 604800
+    },
+    "Poormanscron": {
+      "url": "git://git.drupal.org/project/poormanscron.git",
+      "ms-between-poll": 604800
+    },
+    "Privatemsg": {
+      "url": "git://git.drupal.org/project/privatemsg.git",
+      "ms-between-poll": 604800
+    },
+    "Profile": {
+      "url": "git://git.drupal.org/project/profile.git",
+      "ms-between-poll": 604800
+    },
+    "Project": {
+      "url": "git://git.drupal.org/project/project.git",
+      "ms-between-poll": 604800
+    },
+    "Recipe": {
+      "url": "git://git.drupal.org/project/recipe.git",
+      "ms-between-poll": 604800
+    },
+    "Recorder": {
+      "url": "git://git.drupal.org/project/recorder.git",
+      "ms-between-poll": 604800
+    },
+    "Redirect": {
+      "url": "git://git.drupal.org/project/redirect.git",
+      "ms-between-poll": 604800
+    },
+    "Remindme": {
+      "url": "git://git.drupal.org/project/remindme.git",
+      "ms-between-poll": 604800
+    },
+    "Review": {
+      "url": "git://git.drupal.org/project/review.git",
+      "ms-between-poll": 604800
+    },
+    "Scheduler": {
+      "url": "git://git.drupal.org/project/scheduler.git",
+      "ms-between-poll": 604800
+    },
+    "SimpleAds": {
+      "url": "git://git.drupal.org/project/simpleads.git",
+      "ms-between-poll": 604800
+    },
+    "Sitemap": {
+      "url": "git://git.drupal.org/project/sitemap.git",
+      "ms-between-poll": 604800
+    },
+    "Smileys": {
+      "url": "git://git.drupal.org/project/smileys.git",
+      "ms-between-poll": 604800
+    },
+    "Spell Check": {
+      "url": "git://git.drupal.org/project/spellcheck.git",
+      "ms-between-poll": 604800
+    },
+    "Stock": {
+      "url": "git://git.drupal.org/project/stock.git",
+      "ms-between-poll": 604800
+    },
+    "Style": {
+      "url": "git://git.drupal.org/project/style.git",
+      "ms-between-poll": 604800
+    },
+    "Syndication": {
+      "url": "git://git.drupal.org/project/syndication.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy dhtml": {
+      "url": "git://git.drupal.org/project/taxonomy_dhtml.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy HTML": {
+      "url": "git://git.drupal.org/project/taxonomy_html.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy jsmenu": {
+      "url": "git://git.drupal.org/project/taxonomy_jsmenu.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy Search": {
+      "url": "git://git.drupal.org/project/taxonomy_search.git",
+      "ms-between-poll": 604800
+    },
+    "Trip currency": {
+      "url": "git://git.drupal.org/project/trip_currency.git",
+      "ms-between-poll": 604800
+    },
+    "Trip forum": {
+      "url": "git://git.drupal.org/project/trip_forum.git",
+      "ms-between-poll": 604800
+    },
+    "Urlfilter": {
+      "url": "git://git.drupal.org/project/urlfilter.git",
+      "ms-between-poll": 604800
+    },
+    "Variable": {
+      "url": "git://git.drupal.org/project/variable.git",
+      "ms-between-poll": 604800
+    },
+    "Viewcount": {
+      "url": "git://git.drupal.org/project/viewcount.git",
+      "ms-between-poll": 604800
+    },
+    "Weblink": {
+      "url": "git://git.drupal.org/project/weblink.git",
+      "ms-between-poll": 604800
+    },
+    "Workflow": {
+      "url": "git://git.drupal.org/project/workflow.git",
+      "ms-between-poll": 604800
+    },
+    "Xssfilter": {
+      "url": "git://git.drupal.org/project/xssfilter.git",
+      "ms-between-poll": 604800
+    },
+    "Ystock": {
+      "url": "git://git.drupal.org/project/ystock.git",
+      "ms-between-poll": 604800
+    },
+    "Banner": {
+      "url": "git://git.drupal.org/project/banner.git",
+      "ms-between-poll": 604800
+    },
+    "Single Sign-On (aka SSO or Single Sign On)": {
+      "url": "git://git.drupal.org/project/sso.git",
+      "ms-between-poll": 604800
+    },
+    "Legal": {
+      "url": "git://git.drupal.org/project/legal.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy menu": {
+      "url": "git://git.drupal.org/project/taxonomy_menu.git",
+      "ms-between-poll": 604800
+    },
+    "Quotes": {
+      "url": "git://git.drupal.org/project/quotes.git",
+      "ms-between-poll": 604800
+    },
+    "TrackBack": {
+      "url": "git://git.drupal.org/project/trackback.git",
+      "ms-between-poll": 604800
+    },
+    "Webserver authentication": {
+      "url": "git://git.drupal.org/project/webserver_auth.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy Browser": {
+      "url": "git://git.drupal.org/project/taxonomy_browser.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy navigation": {
+      "url": "git://git.drupal.org/project/taxnav.git",
+      "ms-between-poll": 604800
+    },
+    "Textile": {
+      "url": "git://git.drupal.org/project/textile.git",
+      "ms-between-poll": 604800
+    },
+    "Article": {
+      "url": "git://git.drupal.org/project/article.git",
+      "ms-between-poll": 604800
+    },
+    "Cloud": {
+      "url": "git://git.drupal.org/project/cloud.git",
+      "ms-between-poll": 604800
+    },
+    "Subscriptions": {
+      "url": "git://git.drupal.org/project/subscriptions.git",
+      "ms-between-poll": 604800
+    },
+    "Postcard": {
+      "url": "git://git.drupal.org/project/postcard.git",
+      "ms-between-poll": 604800
+    },
+    "Macrotags": {
+      "url": "git://git.drupal.org/project/macrotags.git",
+      "ms-between-poll": 604800
+    },
+    "form_mail": {
+      "url": "git://git.drupal.org/project/form_mail.git",
+      "ms-between-poll": 604800
+    },
+    "Node import": {
+      "url": "git://git.drupal.org/project/node_import.git",
+      "ms-between-poll": 604800
+    },
+    "Quote": {
+      "url": "git://git.drupal.org/project/quote.git",
+      "ms-between-poll": 604800
+    },
+    "SQL Search (Trip Search)": {
+      "url": "git://git.drupal.org/project/trip_search.git",
+      "ms-between-poll": 604800
+    },
+    "Guestbook": {
+      "url": "git://git.drupal.org/project/guestbook.git",
+      "ms-between-poll": 604800
+    },
+    "Weather": {
+      "url": "git://git.drupal.org/project/weather.git",
+      "ms-between-poll": 604800
+    },
+    "Taxonomy context": {
+      "url": "git://git.drupal.org/project/taxonomy_context.git",
+      "ms-between-poll": 604800
+    },
+    "Flexinode": {
+      "url": "git://git.drupal.org/project/flexinode.git",
+      "ms-between-poll": 604800
+    },
+    "e-Commerce": {
+      "url": "git://git.drupal.org/project/ecommerce.git",
+      "ms-between-poll": 604800
+    },
+    "Internationalization": {
+      "url": "git://git.drupal.org/project/i18n.git",
+      "ms-between-poll": 604800
+    },
+    "API": {
+      "url": "git://git.drupal.org/project/api.git",
+      "ms-between-poll": 604800
+    },
+    "Navigation": {
+      "url": "git://git.drupal.org/project/navigation.git",
+      "ms-between-poll": 604800
+    },
+    "Pblog": {
+      "url": "git://git.drupal.org/project/pblog.git",
+      "ms-between-poll": 604800
+    },
+    "Jsdomenu": {
+      "url": "git://git.drupal.org/project/jsdomenu.git",
+      "ms-between-poll": 604800
+    },
+    "Webform": {
+      "url": "git://git.drupal.org/project/webform.git",
+      "ms-between-poll": 604800
+    },
+    "Context links": {
+      "url": "git://git.drupal.org/project/contextlinks.git",
+      "ms-between-poll": 604800
+    },
+    "Importpage": {
+      "url": "git://git.drupal.org/project/importpage.git",
+      "ms-between-poll": 604800
+    },
+    "waypath": {
+      "url": "git://git.drupal.org/project/waypath.git",
+      "ms-between-poll": 604800
+    },
+    "upload (simple)": {
+      "url": "git://git.drupal.org/project/upload.git",
+      "ms-between-poll": 604800
+    },
+    "E-mail This Page": {
+      "url": "git://git.drupal.org/project/emailpage.git",
+      "ms-between-poll": 604800
+    },
+    "Book Review": {
+      "url": "git://git.drupal.org/project/bookreview.git",
+      "ms-between-poll": 604800
+    },
+    "blogadmin": {
+      "url": "git://git.drupal.org/project/blogadmin.git",
+      "ms-between-poll": 604800
+    }
+  }
+}
