@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 DRUPAL_VERSION=7
 
-PROJECTS_PATH="https://www.drupal.org/api-d$DRUPAL_VERSION/node.json?type=project_module&limit=999999"
+PROJECTS_PATH="https://updates.drupal.org/release-history/project-list/all/projects.xml"
 
-# MS_BETWEEN_POLL is 604800 seconds, or 1 week
+# MS_BETWEEN_POLL is 43200 seconds, or 12 hours
 JQ_FILTER='
 {
 	"dbpath": "data",
@@ -13,7 +13,7 @@ JQ_FILTER='
 			"key" : .title,
 			"value" : {
 				"url": "git://git.drupal.org/project/\(.field_project_machine_name).git",
-				"ms-between-poll": 604800
+				"ms-between-poll": 43200
 			}
 		}] | from_entries
 }'
