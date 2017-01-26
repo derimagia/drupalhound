@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+cd `dirname $0`
+
+project=$1
+version=${2:-7.x}
+
+if [[ -z "$1" ]]; then
+	echo "Must be passed in project as first argument"
+	exit
+fi
+
+release_history=$(curl -s "https://updates.drupal.org/release-history/$project/$version")
+
+dev_release=$(echo $release_history | xmllint --xpath "(//project/releases/release[status='published' and version_extra = 'dev'])[1]/tag/text()" - 2>/dev/null)
+stable_release=$(echo $release_history | xmllint --xpath "(//project/releases/release[status='published' and not(version_extra)])[1]/tag/text()" - 2>/dev/null)
+
+release="${dev_release:-$stable_release}"
+
+if [[ -z "$release" ]]; then
+	# "No release found for $project for $version"
+	exit
+fi
+
+repo="git://git.drupal.org/project/$project"
+
+folder="allmodules/$version/$project"
+
+if [[ ! -d $folder/.git ]]; then
+	git clone $repo $folder
+	cd $folder
+else
+	cd $folder
+	git fetch
+fi
+
+git checkout $release

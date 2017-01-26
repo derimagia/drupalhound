@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+
+script_filepath=$0
+abspath=$(readlink -f ${0%/*}/..)
+cd $abspath
+
+PROJECTS_PATH="https://updates.drupal.org/release-history/project-list/all/projects.xml"
+
+DATA_PATH='data'
+PROJECT_FILE_CACHE=$DATA_PATH/projects.xml
+PROJECT_MODULES_CACHE=$DATA_PATH/allmodules.txt
+PROJECT_THEMES_CACHE=$DATA_PATH/allthemes.txt
+PROJECT_DISTRIBUTIONS_CACHE=$DATA_PATH/alldistributions.txt
+
+# Setup
+mkdir -p $DATA_PATH
+
+update_project_xml() {
+	# Cache projects.xml
+	if [[ -f $PROJECT_FILE_CACHE ]] || (( `stat -c "%Y" $PROJECT_FILE_CACHE` + 3600 > `date +%s`  )); then
+		echo "project.xml is not outdated. Skipping downloading."
+		return 0
+	fi
+
+	echo "Downloading latest project list because it is outdated."
+	curl $PROJECTS_PATH > $PROJECT_FILE_CACHE
+	if (( $? )); then
+		echo "Error downloading '$PROJECTS_PATH' to '$PROJECT_FILE_CACHE'"
+		exit 1
+	fi
+}
+
+
+update_project_files() {
+	# Filter to published and non-numeric projects (No sandboxes)
+	# w/ xmlscarlet: xml sel -t -m "//project[project_status='published' and string(number(short_name))='NaN']" -v "type" -o " " -v "short_name"
+	XSL=$(cat << 'XMLXSLEOF'
+	<?xml version="1.0"?>
+	<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exslt="http://exslt.org/common" version="1.0" extension-element-prefixes="exslt">
+	  <xsl:output omit-xml-declaration="yes" indent="no"/>
+	  <xsl:template match="/">
+	    <xsl:for-each select="//project[project_status='published' and string(number(short_name))='NaN']">
+	      <xsl:call-template name="value-of-template">
+	        <xsl:with-param name="select" select="type"/>
+	      </xsl:call-template>
+	      <xsl:text> </xsl:text>
+	      <xsl:call-template name="value-of-template">
+	        <xsl:with-param name="select" select="short_name"/>
+	      </xsl:call-template>
+	      <xsl:value-of select="'&#10;'"/>
+	    </xsl:for-each>
+	  </xsl:template>
+	  <xsl:template name="value-of-template">
+	    <xsl:param name="select"/>
+	    <xsl:value-of select="$select"/>
+	    <xsl:for-each select="exslt:node-set($select)[position()&gt;1]">
+	      <xsl:value-of select="'&#10;'"/>
+	      <xsl:value-of select="."/>
+	    </xsl:for-each>
+	  </xsl:template>
+	</xsl:stylesheet>
+XMLXSLEOF
+	)
+
+	projects=$(xsltproc <(echo $XSL) $PROJECT_FILE_CACHE)
+
+	printf '%s\n' "${projects[@]}" | grep '^project_module' | cut -d" " -f2 > $PROJECT_MODULES_CACHE
+	printf '%s\n' "${projects[@]}" | grep '^project_theme' | cut -d" " -f2 > $PROJECT_THEMES_CACHE
+	printf '%s\n' "${projects[@]}" | grep '^project_distribution' | cut -d" " -f2 > $PROJECT_DISTRIBUTIONS_CACHE
+
+	echo "Updated allmodules.txt, allthemes.txt, and alldistributions.txt"
+}
+
+update_project_info() {
+    versions=(7.x)
+
+	filename=$1
+
+	# Output what is about to happen.
+	lines=$(wc -l $filename)
+	echo "Total Number of lines: $lines"
+	echo "Will be trying to get the following version numbers: ${versions[@]}"
+
+	# Loop through each version.
+	for filename in $@; do
+		for version in ${versions[@]}; do
+			echo -e "Attempting $version"
+
+			parallel --resume --results data/info "$script_filepath -m '{}' -v '$version'" :::: $filename
+		done
+	done
+}
+
+fetch_project_info() {
+	project="$1"
+	version="$2"
+
+	release_history=$(curl -s "https://updates.drupal.org/release-history/$project/$version")
+
+	project_title=$(echo $release_history | xmllint --xpath "string(//project/title)" -)
+	dev_release=$(echo $release_history | xmllint --xpath "string((//project/releases/release[status='published' and version_extra = 'dev'])[1]/tag/text())" -)
+	stable_release=$(echo $release_history | xmllint --xpath "string((//project/releases/release[status='published' and not(version_extra)])[1]/tag/text())" -)
+
+
+	release="${dev_release:-$stable_release}"
+
+	if [[ -z "$release" ]]; then
+		# "No release found for $project for $version"
+		exit 1
+	fi
+
+	cat << JSON
+{
+	"title" : "$project_title",
+	"url": "git://git.drupal.org/project/$project.git",
+	"url-pattern" : {
+        "base-url" : "http://cgit.drupalcode.org/$project/tree/{path}?h=$release{anchor}",
+        "anchor" : "#n{line}"
+    },
+	"ms-between-poll": 43200,
+	"vcs": "git",
+	"vcs-config": {
+		"ref": "$release"
+	}
+}
+JSON
+}
+
+version=8.x
+
+# Parse args
+while getopts m:v: opt; do
+    case $opt in
+        (m)
+            module=$OPTARG
+            ;;
+        (v)
+            version=$OPTARG
+            ;;
+    esac
+done
+shift $(( OPTIND - 1 ))
+
+# if m is passed, we need to get the project info
+if [[ -n $module ]]; then
+   fetch_project_info $module $version
+   exit
+fi
+
+update_project_xml
+update_project_files
+
+# just do modules for now
+update_project_info $PROJECT_MODULES_CACHE
+

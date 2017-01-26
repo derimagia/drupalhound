@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+DRUPAL_VERSION=7
+
+abspath=$(readlink -f ${0%/*}/..)
+cd $abspath
+
+JQ_FILTER='
+{
+	"dbpath": "dbdata",
+	"max-concurrent-indexers": 8,
+	"repos":
+		[.[] | {
+			"key" : .title,
+			"value" : .
+		}] | from_entries
+}'
+
+mkdir -p data
+
+## Convert the drupal projects into a config for drupalhound
+find ./data/info -type f -name stdout -exec cat {} + | jq -sr "$JQ_FILTER" > config.json
