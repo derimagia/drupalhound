@@ -11,18 +11,25 @@ PROJECT_FILE_CACHE=$DATA_PATH/projects.xml
 PROJECT_MODULES_CACHE=$DATA_PATH/allmodules.txt
 PROJECT_THEMES_CACHE=$DATA_PATH/allthemes.txt
 PROJECT_DISTRIBUTIONS_CACHE=$DATA_PATH/alldistributions.txt
+DEBUG=0
 
 # Setup
 mkdir -p $DATA_PATH
 
+decho() {
+	if (( $DEBUG )); then
+		echo $@
+	fi
+}
+
 update_project_xml() {
 	# Cache projects.xml
-	if [[ -f $PROJECT_FILE_CACHE ]] || (( `stat -c "%Y" $PROJECT_FILE_CACHE` + 3600 > `date +%s`  )); then
-		echo "project.xml is not outdated. Skipping downloading."
+	if [[ -f $PROJECT_FILE_CACHE ]] && (( `stat -c "%Y" $PROJECT_FILE_CACHE` + 3600 > `date +%s`  )); then
+		decho "project.xml is not outdated. Skipping downloading."
 		return 0
 	fi
 
-	echo "Downloading latest project list because it is outdated."
+	decho "Downloading latest project list because it is outdated."
 	curl $PROJECTS_PATH > $PROJECT_FILE_CACHE
 	if (( $? )); then
 		echo "Error downloading '$PROJECTS_PATH' to '$PROJECT_FILE_CACHE'"
@@ -68,18 +75,18 @@ XMLXSLEOF
 	printf '%s\n' "${projects[@]}" | grep '^project_theme' | cut -d" " -f2 > $PROJECT_THEMES_CACHE
 	printf '%s\n' "${projects[@]}" | grep '^project_distribution' | cut -d" " -f2 > $PROJECT_DISTRIBUTIONS_CACHE
 
-	echo "Updated allmodules.txt, allthemes.txt, and alldistributions.txt"
+	decho "Updated allmodules.txt, allthemes.txt, and alldistributions.txt"
 }
 
 update_project_info() {
-    versions=(7.x)
+    versions=(8.x)
 
 	filename=$1
 
 	# Output what is about to happen.
 	lines=$(wc -l $filename)
-	echo "Total Number of lines: $lines"
-	echo "Will be trying to get the following version numbers: ${versions[@]}"
+	decho "Total Number of lines: $lines"
+	decho "Will be trying to get the following version numbers: ${versions[@]}"
 
 	# Loop through each version.
 	for filename in $@; do
@@ -98,16 +105,18 @@ fetch_project_info() {
 	release_history=$(curl -s "https://updates.drupal.org/release-history/$project/$version")
 
 	project_title=$(echo $release_history | xmllint --xpath "string(//project/title)" -)
+	project_type=$(echo $release_history | xmllint --xpath "string(//project/type)" -)
 	dev_release=$(echo $release_history | xmllint --xpath "string((//project/releases/release[status='published' and version_extra = 'dev'])[1]/tag/text())" -)
 	stable_release=$(echo $release_history | xmllint --xpath "string((//project/releases/release[status='published' and not(version_extra)])[1]/tag/text())" -)
 
-
 	release="${dev_release:-$stable_release}"
 
-	if [[ -z "$release" ]]; then
+	if [[ -z "$release" ]] || [[ -z $project_type ]]; then
 		# "No release found for $project for $version"
 		exit 1
 	fi
+
+	echo "$project ($project_title)" >> "$DATA_PATH/$project_type-$version-released.txt"
 
 	cat << JSON
 {
@@ -129,13 +138,16 @@ JSON
 version=8.x
 
 # Parse args
-while getopts m:v: opt; do
+while getopts dm:v: opt; do
     case $opt in
         (m)
             module=$OPTARG
             ;;
         (v)
             version=$OPTARG
+            ;;
+        (d)
+            debug=1
             ;;
     esac
 done
