@@ -79,7 +79,7 @@ XMLXSLEOF
 }
 
 update_project_info() {
-    versions=(8.x)
+	versions=(7.x 8.x)
 
 	filename=$1
 
@@ -93,7 +93,7 @@ update_project_info() {
 		for version in ${versions[@]}; do
 			echo -e "Attempting $version"
 
-			parallel --resume --results data/info "$script_filepath -m '{}' -v '$version'" :::: $filename
+			parallel --resume --progress --results data/info "$script_filepath -m '{}' -v '$version'" :::: $filename >/dev/null
 		done
 	done
 }
